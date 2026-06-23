@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "scratch2py"
+version = "0.1.0"
+description = "Convert Scratch .sb3 projects into runnable pygame Python projects"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=7", "ruff>=0.4"]
+
+[project.scripts]
+scratch2py = "scratch2py.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["scratch2py*"]
+
+[tool.setuptools.package-data]
+scratch2py = ["runtime/*.py", "templates/*"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+ignore = ["B905"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
