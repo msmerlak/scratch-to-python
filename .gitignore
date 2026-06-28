@@ -15,5 +15,9 @@ dist/
 .venv/
 venv/
 
+
+# Scratch games
+*.sb3
+
 # Converter output
 /out/
