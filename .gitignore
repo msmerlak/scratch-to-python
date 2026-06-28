@@ -16,6 +16,9 @@ dist/
 venv/
 
 
+# References
+references/
+
 # Scratch games
 *.sb3
 
