@@ -52,11 +52,16 @@ def load_costume_image(md5ext: str, name: str = "") -> pygame.Surface:
 
 
 def _load_svg(path: str, name: str) -> pygame.Surface:
-    if not _HAVE_CAIROSVG:
-        return _placeholder(name)
+    # Prefer cairosvg when available: it rasterizes Scratch SVGs faithfully.
+    if _HAVE_CAIROSVG:
+        try:
+            png_bytes = cairosvg.svg2png(url=path)
+            return pygame.image.load(io.BytesIO(png_bytes)).convert_alpha()
+        except Exception:
+            pass
+    # Fall back to pygame's bundled SDL_image, which can load SVGs directly.
     try:
-        png_bytes = cairosvg.svg2png(url=path)
-        return pygame.image.load(io.BytesIO(png_bytes)).convert_alpha()
+        return pygame.image.load(path).convert_alpha()
     except Exception:
         return _placeholder(name)
 

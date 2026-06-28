@@ -75,9 +75,11 @@ class Stage(TargetMixin):
     # -- rendering ------------------------------------------------------
 
     def draw(self, screen: pygame.Surface) -> None:
+        # Scratch's stage is opaque white; clear first so a transparent or
+        # partial backdrop doesn't leave trails from the previous frame.
+        screen.fill((255, 255, 255))
         surface = self._backdrop_surface()
         if surface is None:
-            screen.fill((255, 255, 255))
             return
         scaled = pygame.transform.smoothscale(surface, (STAGE_WIDTH, STAGE_HEIGHT))
         screen.blit(scaled, (0, 0))

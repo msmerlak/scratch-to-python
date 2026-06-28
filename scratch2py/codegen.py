@@ -92,7 +92,7 @@ class Emitter:
             handler = blocks.EXPRESSION_HANDLERS.get(node.opcode)
             if handler is None:
                 # Dropdown menu shadows carry their choice in a single field.
-                if node.opcode.endswith("_menu") and len(node.fields) == 1:
+                if node.opcode.endswith("menu") and len(node.fields) == 1:
                     return py_string(next(iter(node.fields.values())))
                 self.report.unsupported(node.opcode)
                 return "''"
